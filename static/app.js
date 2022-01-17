@@ -241,6 +241,19 @@ function agregarItem() {
         eliminar.id = "eliminar" + i;
         eliminar.className = "eliminar" + i;
         eliminar.name = "eliminar" + i;
+        botoneliminar(eliminar);
+
+        function botoneliminar(boton){
+            boton.classList.add("d-grid")
+            boton.classList.add("gap-4")
+            boton.classList.add("col-2")
+            boton.classList.add("mx-auto")
+            boton.classList.add("bg-dark")
+            boton.classList.add("btn")
+            boton.classList.add("btn-primary")
+            boton.classList.add("m-4")
+        }
+        
 
         eliminar.onclick = function () {
             event.preventDefault();

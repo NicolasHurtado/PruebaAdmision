@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h2 class="text-center ">Lista de Impuestos</h2>
+  <table class="table mt-5">
+    <thead class="table-dark">
+      <tr class="text-center">
+        <th>ID</th>
+        <th>DESCRIPCION</th>
+        <th>PORCENTAJE</th>
+        <th>BASE</th>
+        <th>OPCIÓN 1</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for impuesto in impuestos %}
+            <tr class="text-center">
+                <td>{{ impuesto.id }}</td>
+                <td>{{ impuesto.descripcion }}</td>
+                <td>{{ impuesto.porcentaje*100}} %</td>
+                <td>{{ impuesto.base }}</td>
+                <td><a class=" bg-dark btn btn-primary" href="editar/{{impuesto.id}}">Editar</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}
+

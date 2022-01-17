@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="section-name padding-y-sm">
+    <div class="container  ">
+        <div class="section-heading pt-3 pb-3">
+            <h3 class="text-center m-4"> EDITAR IMPUESTO {{ impuesto.descripcion|upper }} </h3>
+        </div><!-- sect-heading -->
+            <form action="{{ url_for('Editar',id=impuesto.id)}}" method="POST">
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline ">
+                        <label class="form-label d-grid  col-3 mx-auto" for="form6Example1"><strong>DESCRIPCION</strong></label>
+                        <input value = "{{ impuesto.descripcion }}" type="text" name="descripcion" class="form-control" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline ">
+                        <label class="form-label d-grid  col-3 mx-auto" for="form6Example1"><strong>PORCENTAJE</strong></label>
+                        <input value = "{{ impuesto.porcentaje }}" type="number" step="any" name="porcentaje" class="form-control" />
+                        
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline ">
+                        <label class="form-label d-grid  col-3 mx-auto" for="form6Example1"><strong>BASE</strong></label>
+                        <input value = "{{ impuesto.base }}" type="number" step="any" name="base" class="form-control" />
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="container d-grid gap-4  mx-auto">
+                <button type="submit" class="btn btn-primary mb-4 mx-auto">
+                    Modificar Impuesto
+                </button>
+            </div>
+                
+            </form>
+        </div> <!-- row.// -->
+    </div> <!-- container.// -->
+</section>
+
+
+{% endblock content %}
+

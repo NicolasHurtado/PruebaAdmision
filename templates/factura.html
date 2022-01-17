@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Aplicacion de flask productos</h1>
+<div id="getText" style="display: none">
+  <br />
+</div>
+<button class="agregar">Agregar Item</button>
+
+<form id="factura" method="POST" action="{{url_for('Factura')}}">
+  <span>Cliente</span>
+  <input type="number" id="cliente" placeholder="Cliente" name="cliente" />
+  <span>Fecha</span>
+  <input type="date" id="fecha" placeholder="Fecha" name="fecha" />
+  <br />
+  <label for="">TOTAL IMPUESTOS </label>
+  <input class="totalimpuestos" type="number" value=0 readonly>
+  <br />
+  <label for="">TOTAL GENERAL </label>
+  <input class="totalgeneral" type="number" value=0 readonly>
+  <br />
+  <button type="submit">Enviar</button>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script  src="../static/app.js"></script>
+
+{% endblock content %}

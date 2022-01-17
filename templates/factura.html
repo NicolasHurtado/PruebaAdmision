@@ -1,25 +1,39 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Aplicacion de flask productos</h1>
-<div id="getText" style="display: none">
-  <br />
-</div>
-<button class="agregar">Agregar Item</button>
+<div class="container">
+  <h1 class="text-center">NUEVA FACTURA</h1>
+  <div id="getText" style="display: none">
+    <br />
+  </div>
+  <button class="agregar btn btn-primary mb-4 mx-auto">Agregar Item</button>
 
-<form id="factura" method="POST" action="{{url_for('Facturas')}}">
-  <span>Cliente</span>
-  <input type="text" id="cliente" placeholder="Cliente" name="cliente" />
-  <span>Fecha</span>
-  <input type="date" id="fecha" placeholder="Fecha" name="fecha" />
-  <br />
-  <label for="">TOTAL IMPUESTOS </label>
-  <input class="totalimpuestos" type="number" name="totalimpuestos" value=0 readonly>
-  <br />
-  <label for="">TOTAL A PAGAR </label>
-  <input class="totalgeneral" type="number" name="totalgeneral" value=0 readonly>
-  <br />
-  <button type="submit">Enviar</button>
-</form>
+  <form  id="factura" method="POST" action="{{url_for('Facturas')}}">
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline ">
+          <label class="form-label d-grid gap-4 col-2 mx-auto" >Cliente</label>
+          <input class="form-control" type="text" id="cliente" placeholder="Cliente" name="cliente" />
+        </div>
+      </div>
+      <div class="col">
+        <label class="form-label d-grid gap-4 col-2 mx-auto" >Fecha</label>
+        <input class="form-control" type="date" id="fecha" placeholder="Fecha" name="fecha" />
+      </div>
+      <div class="col">
+        <label >TOTAL IMPUESTOS </label>
+        <br>
+        <input class="totalimpuestos form-control mt-2" type="number" name="totalimpuestos" value=0 readonly>
+      </div>
+      <div class="col">
+        <label for="">TOTAL A PAGAR </label>
+        <input class="totalgeneral form-control mt-2" type="number" name="totalgeneral" value=0 readonly>
+      </div>
+      <div class="row">
+        <button class="d-grid gap-4 col-2 mx-auto m-4 bg-dark btn btn-primary" type="submit">Crear Factura</button>
+      </div>
+  </div>
+  </form>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script  src="../static/app.js"></script>

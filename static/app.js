@@ -30,6 +30,7 @@ function agregarItem() {
 
         let div = document.createElement("div");
         div.className = "item" + i;
+        div.classList.add("divitem")
         div.id = "item" + i;
         // div.innerText = "Item # " + i;
 
@@ -196,7 +197,7 @@ function agregarItem() {
                 document.getElementById(`${total.id}`).innerHTML = valorTotal;
                 total.value = valorTotal;
                 itemimpuestos.value.value = valorImpuesto;
-                sumaImpuestos(valorprecio,selectvalor);
+                sumaImpuestos();
                 sumaTotales();
             });
         });
@@ -293,8 +294,9 @@ function editarItem(texto, id, nuevo) {
 }
 function ordernarItems() {
     console.log("LLAMADO ORDENAR ITEMS");
-    var x = document.getElementById("factura").querySelectorAll("div");
-    console.log("la cantidad es ; ", x.length);
+    var x = document.getElementById("factura").getElementsByClassName("divitem");
+    console.log("Items ", x);
+    console.log("la cantidad es ", x.length);
     for (let p = 0; p < x.length; p++) {
         console.log("el elemento  es", x[p].getAttribute("valor"));
         console.log("OPA ssssssssssss ", p);
@@ -311,10 +313,10 @@ function ordernarItems() {
     i = x.length + 1;
 }
 
-function sumaImpuestos(precio, impuesto) {
+function sumaImpuestos() {
     let suma = 0
     console.log("LLAMADO SUMAR TOTAL IMPUESTOS");
-    var x = document.getElementById("factura").querySelectorAll("div");
+    var x = document.getElementById("factura").getElementsByClassName("divitem");
     console.log("la cantidad es ; ", x.length);
 
     for (let i = 1; i <= x.length; i++) {
@@ -335,7 +337,7 @@ function sumaImpuestos(precio, impuesto) {
 function sumaTotales() {
     let suma = 0
     console.log("LLAMADO SUMAR DE TOTALes");
-    var x = document.getElementById("factura").querySelectorAll("div");
+    var x = document.getElementById("factura").getElementsByClassName("divitem");
     console.log("la cantidad es ; ", x.length);
 
     for (let i = 1; i <= x.length; i++) {

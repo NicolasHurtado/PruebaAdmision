@@ -2,13 +2,14 @@
     {% block content %}
     
       <section class="section-name padding-y-sm">
-            <div class="container  ">
-                <div class="section-heading pt-3 pb-3">
-                    <h3 class="text-center m-4">FACTURACIÓN</h3>
-                </div><!-- sect-heading -->
-                <div class="d-grid gap-4 col-2 mx-auto">
-                    <a href="{{ url_for ('Factura')}}" class="btn btn-primary">Nueva Factura</a>
+            <div class="container">
+                <div class="d-grid gap-4 col-2 mx-auto m-4">
+                    <h5 class="text-center m-4">IMPUESTOS</h5>
+                    <a href="{{ url_for ('NuevoImpuesto')}}" class="btn btn-primary">Nuevo Impuesto</a>
                     <a href="{{ url_for ('Gestion')}}" class="btn btn-primary">Gestionar Impuestos</a>
+                    <h5 class="text-center m-4">FACTURAS</h5>
+                    <a href="{{ url_for ('Facturas')}}" class="btn btn-primary">Nueva Factura</a>
+                    <a href="{{ url_for ('Listar')}}" class="btn btn-primary">Listar Facturas</a>
                 </div>
             </div> <!-- container.// -->
         </section>

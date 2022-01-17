@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h2 class="text-center ">Lista de Facturas</h2>
+  <table class="table mt-5">
+    <thead class="table-dark">
+      <tr class="text-center">
+        <th>ID</th>
+        <th>FECHA</th>
+        <th>CLIENTE</th>
+        <th>DETALLE</th>
+        <th>TOTAL DE IMPUESTOS</th>
+        <th>TOTAL A PAGAR</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for factura in facturas %}
+            <tr class="text-center">
+                <td class="align-middle">{{ factura.id }}</td>
+                <td class="align-middle">{{ factura.fecha }}</td>
+                <td class="align-middle">{{ factura.cliente }}</td>
+                <td class="align-middle">
+                    <ul>
+                    {% for item in factura.detalle %}
+                        <li>Item : {{item["item"]}} - Cantidad:  {{item["cantidad"]}} -  Precio: {{item["precio"]}} - Imp: {{ item["impuesto"][0] }} - Total: {{item["total"]}}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td class="align-middle">{{ factura.totalimpuestos }}</td>
+                <td class="align-middle">{{ factura.totalpagar }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}
+

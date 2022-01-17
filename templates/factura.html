@@ -6,17 +6,17 @@
 </div>
 <button class="agregar">Agregar Item</button>
 
-<form id="factura" method="POST" action="{{url_for('Factura')}}">
+<form id="factura" method="POST" action="{{url_for('Facturas')}}">
   <span>Cliente</span>
-  <input type="number" id="cliente" placeholder="Cliente" name="cliente" />
+  <input type="text" id="cliente" placeholder="Cliente" name="cliente" />
   <span>Fecha</span>
   <input type="date" id="fecha" placeholder="Fecha" name="fecha" />
   <br />
   <label for="">TOTAL IMPUESTOS </label>
-  <input class="totalimpuestos" type="number" value=0 readonly>
+  <input class="totalimpuestos" type="number" name="totalimpuestos" value=0 readonly>
   <br />
-  <label for="">TOTAL GENERAL </label>
-  <input class="totalgeneral" type="number" value=0 readonly>
+  <label for="">TOTAL A PAGAR </label>
+  <input class="totalgeneral" type="number" name="totalgeneral" value=0 readonly>
   <br />
   <button type="submit">Enviar</button>
 </form>

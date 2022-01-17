@@ -175,17 +175,28 @@ function agregarItem() {
                 let valorprecio = event2.path[0].value;
                 console.log(`Este es el precio que se escribió: ${valorprecio}`);
                 if (selectvalor!== 0){
-                    valorImpuesto = (cantidad * valorprecio)*selectvalor;
-                    console.log("Entre valor: ",valorImpuesto)
-                } else {
-                    console.log("No entre")
+                    for (let j = 0; j < data_impuestos.length; j++) {
+                        console.log("Tipo de dato impuesto",data_impuestos[j][1])
+                        if (selectvalor==data_impuestos[j][1]){
+                            if (valorprecio>=data_impuestos[j][2]){
+                                valorImpuesto = (cantidad * valorprecio)*selectvalor;
+                                console.log("Entré, valor: ",valorImpuesto)
+                                itemimpuestos.value = valorImpuesto;
+                                break
+                            } else {
+                                valorImpuesto = 0;
+                                console.log("No entré, valor: ",valorImpuesto)
+                                itemimpuestos.value = valorImpuesto;
+                            }
+                        }
+                    }    
                 }
                     
                 let valorTotal = cantidad * valorprecio + valorImpuesto;
                 document.getElementById(`${total.id}`).innerHTML = valorTotal;
                 total.value = valorTotal;
                 itemimpuestos.value.value = valorImpuesto;
-                sumaImpuestos();
+                sumaImpuestos(valorprecio,selectvalor);
                 sumaTotales();
             });
         });
@@ -198,16 +209,22 @@ function agregarItem() {
                 let cantidad = event2.path[0].value;
                 console.log(`Este es la cantidad que se escribió: ${cantidad}`);
                 if (selectvalor!== 0){
-                    valorImpuesto = (cantidad * valorprecio)*selectvalor;
-                    console.log("Entre valor: ",valorImpuesto)
-                } else {
-                    console.log("No entre")
+                    for (let j = 0; j < data_impuestos.length; j++) {
+                        console.log("Tipo de dato impuesto",data_impuestos[j][1])
+                        if (selectvalor==data_impuestos[j][1]){
+                            if (valorprecio>=data_impuestos[j][2]){
+                                valorImpuesto = (cantidad * valorprecio)*selectvalor;
+                                console.log("Entré, valor: ",valorImpuesto)
+                                itemimpuestos.value = valorImpuesto;
+                                break
+                            }
+                        }
+                    }    
                 }
                 let valorTotal = cantidad * valorprecio + valorImpuesto;
                 document.getElementById(`${total.id}`).innerHTML = valorTotal;
                 total.value = valorTotal;
-                itemimpuestos.value = valorImpuesto;
-                sumaImpuestos();
+                sumaImpuestos(valorprecio,selectvalor);
                 sumaTotales();
             });
         });
@@ -294,7 +311,7 @@ function ordernarItems() {
     i = x.length + 1;
 }
 
-function sumaImpuestos() {
+function sumaImpuestos(precio, impuesto) {
     let suma = 0
     console.log("LLAMADO SUMAR TOTAL IMPUESTOS");
     var x = document.getElementById("factura").querySelectorAll("div");
@@ -305,11 +322,14 @@ function sumaImpuestos() {
         console.log('input impuesto: ',total)
         suma += parseFloat(total.value);
         console.log("Suma impuestos: ",suma)
+
+        // Agrega la suma de impuestos en el total impuestos
+        let totalImpuestos = document.querySelector(".totalimpuestos");
+        console.log(totalImpuestos)
+        totalImpuestos.value = suma;
     }
 
-    let totalImpuestos = document.querySelector(".totalimpuestos");
-    console.log(totalImpuestos)
-    totalImpuestos.value = suma;
+    
 }
 
 function sumaTotales() {

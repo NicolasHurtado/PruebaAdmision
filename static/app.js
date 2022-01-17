@@ -62,35 +62,9 @@ function agregarItem() {
         input1.innerText = document.getElementById("getText").innerText;
         div.appendChild(input1);
 
-        // Creamos el input de cantidad
-        // Creamos el span del item
-        let span1 = document.createElement("span");
-        span1.innerText = "Cantidad";
-        div.appendChild(span1);
-        let input2 = document.createElement("input");
-        input2.className = "cantidad" + i;
-        input2.id = "cantidad" + i;
-        input2.name = "cantidad" + i;
-        input2.type = "number";
-        input2.innerText = document.getElementById("getText").innerText;
-        div.appendChild(input2);
-
-        // Creamos el input de precio
-        let span2 = document.createElement("span");
-
-        span2.innerText = "Precio";
-        div.appendChild(span2);
-        let precio = document.createElement("input");
-        precio.className = "precio" + i;
-        precio.id = "precio" + i;
-        precio.name = "precio" + i;
-        precio.type = "number";
-        precio.innerText = document.getElementById("getText").innerText;
-        div.appendChild(precio);
-
         // Creamos el span de impuestos
         let spanimp = document.createElement("span");
-        spanimp.innerText = "Impuestos";
+        spanimp.innerText = " Impuestos ";
         div.appendChild(spanimp);
 
 
@@ -104,6 +78,7 @@ function agregarItem() {
         select.multiple = true;
         select.id = "impuesto" + i;
         select.name = "impuesto" + i;
+        select.onchange = changeFunc;
         select.innerText = document.getElementById("getText").innerText;
 
         for (let i = 0; i < data_impuestos.length; i++) {
@@ -116,9 +91,63 @@ function agregarItem() {
 
         div.appendChild(select);
 
+        let selectvalor = 0;
+        //Trae el valor del option seleccionado
+        function changeFunc() {
+            let selectBox = document.getElementById(`${select.id}`);
+            selectvalor = parseFloat(selectBox.options[selectBox.selectedIndex].value);
+            console.log(`Opcion elegida: `,selectvalor);
+        }
+        
+
+        // Creamos el input de precio
+        let span2 = document.createElement("span");
+
+        span2.innerText = " Precio ";
+        div.appendChild(span2);
+        let precio = document.createElement("input");
+        precio.className = "precio" + i;
+        precio.id = "precio" + i;
+        precio.name = "precio" + i;
+        precio.type = "number";
+        precio.innerText = document.getElementById("getText").innerText;
+        div.appendChild(precio);
+
+        // Creamos el input de cantidad
+        // Creamos el span del item
+        let span1 = document.createElement("span");
+        span1.innerText = " Cantidad ";
+        div.appendChild(span1);
+        let input2 = document.createElement("input");
+        input2.className = "cantidad" + i;
+        input2.id = "cantidad" + i;
+        input2.name = "cantidad" + i;
+        input2.type = "number";
+        input2.innerText = document.getElementById("getText").innerText;
+        div.appendChild(input2);
+
+        
+        // Impuestos Item
+        let spanimpuestos = document.createElement("span");
+
+        spanimpuestos.innerText = " Total Impuestos ";
+        div.appendChild(spanimpuestos);
+        let itemimpuestos = document.createElement("input");
+
+        itemimpuestos.value = 0;
+        itemimpuestos.className = "itemimpuestos" + i;
+        itemimpuestos.id = "itemimpuestos" + i;
+        itemimpuestos.name = "itemimpuestos" + i;
+        itemimpuestos.type = "number";
+        itemimpuestos.readOnly = true;
+        itemimpuestos.innerText = document.getElementById("getText").innerText;
+
+        div.appendChild(itemimpuestos);
+
+        // Campo Total
         let span3 = document.createElement("span");
 
-        span3.innerText = "Total ";
+        span3.innerText = " Total ";
         div.appendChild(span3);
         let total = document.createElement("input");
 
@@ -133,6 +162,8 @@ function agregarItem() {
         div.appendChild(total);
 
         // Actualiza el total con los datos ingresados en cantidad y precio
+        
+        let valorImpuesto = 0;
         let inputcantidad = document.getElementById(`${input2.id}`);
         let inputprecio = document.getElementById(`${precio.id}`);
 
@@ -141,11 +172,21 @@ function agregarItem() {
             let cantidad = event1.path[0].value;
             console.log(`Este es la cantidad que se escribió: ${cantidad}`);
             inputprecio.addEventListener("keyup", (event2) => {
-            let valorprecio = event2.path[0].value;
-            console.log(`Este es el precio que se escribió: ${valorprecio}`);
-            valorTotal = cantidad * valorprecio;
-            document.getElementById(`${total.id}`).innerHTML = valorTotal;
-            total.value = valorTotal;
+                let valorprecio = event2.path[0].value;
+                console.log(`Este es el precio que se escribió: ${valorprecio}`);
+                if (selectvalor!== 0){
+                    valorImpuesto = (cantidad * valorprecio)*selectvalor;
+                    console.log("Entre valor: ",valorImpuesto)
+                } else {
+                    console.log("No entre")
+                }
+                    
+                let valorTotal = cantidad * valorprecio + valorImpuesto;
+                document.getElementById(`${total.id}`).innerHTML = valorTotal;
+                total.value = valorTotal;
+                itemimpuestos.value.value = valorImpuesto;
+                sumaImpuestos();
+                sumaTotales();
             });
         });
 
@@ -154,13 +195,26 @@ function agregarItem() {
             let valorprecio = event1.path[0].value;
             console.log(`Este es el precio que se escribió: ${valorprecio}`);
             inputcantidad.addEventListener("keyup", (event2) => {
-            let cantidad = event2.path[0].value;
-            console.log(`Este es la cantidad que se escribió: ${cantidad}`);
-            valorTotal = cantidad * valorprecio;
-            document.getElementById(`${total.id}`).innerHTML = valorTotal;
-            total.value = valorTotal;
+                let cantidad = event2.path[0].value;
+                console.log(`Este es la cantidad que se escribió: ${cantidad}`);
+                if (selectvalor!== 0){
+                    valorImpuesto = (cantidad * valorprecio)*selectvalor;
+                    console.log("Entre valor: ",valorImpuesto)
+                } else {
+                    console.log("No entre")
+                }
+                let valorTotal = cantidad * valorprecio + valorImpuesto;
+                document.getElementById(`${total.id}`).innerHTML = valorTotal;
+                total.value = valorTotal;
+                itemimpuestos.value = valorImpuesto;
+                sumaImpuestos();
+                sumaTotales();
             });
         });
+        
+        
+        
+
 
         //Boton eliminar item
         let eliminar = document.createElement("button");
@@ -225,7 +279,7 @@ function ordernarItems() {
     var x = document.getElementById("factura").querySelectorAll("div");
     console.log("la cantidad es ; ", x.length);
     for (let p = 0; p < x.length; p++) {
-        console.log("el elemtento  es", x[p].getAttribute("valor"));
+        console.log("el elemento  es", x[p].getAttribute("valor"));
         console.log("OPA ssssssssssss ", p);
         editarIn("input", x[p].getAttribute("valor"), p + 1);
         editarIn("precio", x[p].getAttribute("valor"), p + 1);
@@ -238,4 +292,40 @@ function ordernarItems() {
         editarItem("item", x[p].getAttribute("valor"), p + 1);
     }
     i = x.length + 1;
+}
+
+function sumaImpuestos() {
+    let suma = 0
+    console.log("LLAMADO SUMAR TOTAL IMPUESTOS");
+    var x = document.getElementById("factura").querySelectorAll("div");
+    console.log("la cantidad es ; ", x.length);
+
+    for (let i = 1; i <= x.length; i++) {
+        let total = document.getElementById('itemimpuestos'+i);
+        console.log('input impuesto: ',total)
+        suma += parseFloat(total.value);
+        console.log("Suma impuestos: ",suma)
+    }
+
+    let totalImpuestos = document.querySelector(".totalimpuestos");
+    console.log(totalImpuestos)
+    totalImpuestos.value = suma;
+}
+
+function sumaTotales() {
+    let suma = 0
+    console.log("LLAMADO SUMAR DE TOTALes");
+    var x = document.getElementById("factura").querySelectorAll("div");
+    console.log("la cantidad es ; ", x.length);
+
+    for (let i = 1; i <= x.length; i++) {
+        let total = document.getElementById('total'+i);
+        console.log('input total: ',total)
+        suma += parseFloat(total.value);
+        console.log("Suma Total: ",suma)
+    }
+
+    let totalgeneral = document.querySelector(".totalgeneral");
+    console.log(totalgeneral)
+    totalgeneral.value = suma;
 }
